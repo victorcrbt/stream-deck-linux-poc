@@ -10,7 +10,12 @@ body {
   display: flex;
   flex-direction: column;
 
-  background: #373737;
+  background: #3a3a3a;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
 }
 
 #root {
@@ -20,15 +25,31 @@ body {
   flex-direction: column;
 }
 
-h1.title {
+.tittle-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+
+.title {
   margin: 0;
   padding: 0;
+  color: #ccc
 }
 
 .header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  padding: 8px 16px;
+}
+
+.header button {
+  background: none;
+  border: none;
 }
 
 .wrapper {
@@ -48,10 +69,18 @@ h1.title {
 } 
 
 .tile-button {
-  background: yellow;
+  background: #222;
+  border: 0;
   width: 84px;
   height: 84px;
 
   align-self: center;
   justify-self: center;
+
+  border-radius: 8px;
+
+  /* fit background image to container */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
