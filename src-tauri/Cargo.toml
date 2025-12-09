@@ -25,3 +25,4 @@ tauri = { version = "2.9.4", features = [] }
 tauri-plugin-log = "2"
 elgato-streamdeck = "0.12.1"
 pulsectl-rs = "0.3.2"
+anyhow = "1"

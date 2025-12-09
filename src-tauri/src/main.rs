@@ -1,6 +1,17 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+mod streamdeck;
+
+use std::sync::Mutex;
+use tauri::Manager;
+use streamdeck::{start_streamdeck_listener, AudioState};
 
 fn main() {
-  app_lib::run();
+  tauri::Builder::default()
+    .setup(|app| {
+      app.manage(Mutex::new(AudioState::new()));
+      start_streamdeck_listener(app.handle().clone());
+      Ok(())
+    })
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
