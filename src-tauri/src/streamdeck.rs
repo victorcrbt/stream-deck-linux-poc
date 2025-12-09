@@ -5,7 +5,7 @@ use elgato_streamdeck::{
     new_hidapi,
     list_devices,
     DeviceStateUpdate,
-    StreamDeck
+    StreamDeck,
 };
 
 pub struct AudioState {
@@ -13,6 +13,35 @@ pub struct AudioState {
 }
 
 impl AudioState {
+    pub fn init() {
+        let hidapi = elgato_streamdeck::new_hidapi().unwrap();
+        let devices = list_devices(&hidapi);
+        let (kind, serial) = devices[0].clone();
+        let deck = StreamDeck::connect(&hidapi, kind, &serial).unwrap();
+        deck.clear_all_button_images();
+        deck.set_brightness( 100);
+
+        AudioState::set_initial_images(&deck);
+        
+        deck.flush();
+    }
+
+    pub fn set_initial_images(deck: &StreamDeck) {
+        let mic_on_image = image::open("icons/mic-on.png").unwrap();
+        let g560_image = image::open("icons/g560-active.png").unwrap();
+        let hs80_output_image = image::open("icons/hs80-output-active.png").unwrap();
+        let wh1000xm3_image = image::open("icons/wh1000xm3-active.png").unwrap();
+        let hyperx_quadcast_image = image::open("icons/hyperx-quadcast-active.png").unwrap();
+        let hs80_input_image = image::open("icons/hs80-input-active.png").unwrap();
+        
+        deck.set_button_image(0, mic_on_image);
+        deck.set_button_image(5, g560_image);
+        deck.set_button_image(6, hs80_output_image);
+        deck.set_button_image(7, wh1000xm3_image);
+        deck.set_button_image(10, hyperx_quadcast_image);
+        deck.set_button_image(11, hs80_input_image);
+    }
+
     pub fn new() -> Self {
         AudioState { muted: false }
     }

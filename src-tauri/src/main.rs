@@ -10,6 +10,7 @@ fn main() {
     .setup(|app| {
       app.manage(Mutex::new(AudioState::new()));
       start_streamdeck_listener(app.handle().clone());
+      AudioState::init();
       Ok(())
     })
     .run(tauri::generate_context!())
